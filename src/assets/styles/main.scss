@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url('./fonts/Ubuntu-Regular.ttf');
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+  button {
+    color: #ffffff !important;
+  }
+  .description {
+    font-size: 16px;
+    color: #9699ab;
+    font-weight: 500;
+  }
+  .v-switch__track {
+    height: 18px !important;
+    width: 40px !important;
+  }
+  .v-switch__thumb {
+    width: 12px !important;
+    height: 12px !important;
+  }
+  .back-button {
+    font-weight: 700;
+    color: #9699ab !important;
+  }
+  .back-button:hover {
+    color: #02295a !important;
+  }
+  .font-14 {
+    font-size: 14px !important;
+  }
+}

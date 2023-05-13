@@ -10,17 +10,23 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "pinia": "^2.0.35",
+    "axios": "^1.4.0",
+    "sass": "^1.62.1",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "vuetify": "^3.2.3",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vitejs/plugin-vue": "^4.2.1",
     "@vue/eslint-config-prettier": "^7.1.0",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
+    "node-sass": "^8.0.0",
     "prettier": "^2.8.8",
+    "sass-loader": "^13.2.2",
     "vite": "^4.3.4"
   }
 }
