@@ -4,7 +4,7 @@
       <component :is="componentName" />
     </keep-alive>
   </div>
-  <v-card class="pa-4" min-height="100%" v-else>
+  <v-card class="pa-4" height="580" v-else>
     <keep-alive>
       <component :is="componentName" />
     </keep-alive>

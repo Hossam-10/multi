@@ -1,5 +1,5 @@
 <template>
-  <v-app class="bg-body">
+  <v-app class="bg-body position-relative">
     <RouterView />
   </v-app>
 </template>
