@@ -41,7 +41,9 @@
       </v-text-field>
     </v-form>
     <div class="mt-16 text-right">
-      <v-btn class="text-none" flat color="#02295a" @click="nextStep">Next Step</v-btn>
+      <v-btn class="text-none" flat color="#02295a" :disabled="!isValid" @click="nextStep"
+        >Next Step</v-btn
+      >
     </div>
   </div>
 </template>
