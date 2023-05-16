@@ -13,7 +13,7 @@ export default {
   name: 'SuccessfulConfirm',
   data() {
     return {
-      succefulMessage: `Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us atsupport@loremgaming.com`
+      succefulMessage: `Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us hossammahmoud515@gmail.com`
     }
   },
   methods: {
