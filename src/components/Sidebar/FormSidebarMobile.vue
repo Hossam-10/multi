@@ -24,7 +24,8 @@ export default {
 <style lang="scss" scoped>
 .sidebar-background {
   height: 150px;
-  background: url('../../assets/images/svgs/mobile-sidebar-background.svg');
+  background: url('../../assets/images/svgs/mobile-sidebar-background.svg') no-repeat;
+  background-size: cover;
   column-gap: 30px;
   .step-number {
     width: 30px;
