@@ -4,10 +4,6 @@
   </v-app>
 </template>
 
-<script>
-export default {}
-</script>
-
 <style lang="scss" scoped>
 .bg-body {
   background-color: #f0f6ff;
