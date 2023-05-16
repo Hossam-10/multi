@@ -15,7 +15,7 @@
               <v-img max-width="35" max-height="35" :src="getPlanImage(plan.iconName)"></v-img>
               <div>
                 <p class="font-weight-bold">{{ plan.name }}</p>
-                <p class="price-text">${{ getPlanPrice(plan) }}/yr</p>
+                <p class="price-text">${{ getPlanPrice(plan) }}</p>
                 <p class="free-period">2 months free</p>
               </div>
             </div>
@@ -81,7 +81,7 @@ export default {
       return new URL(`../../assets/images/svgs/plans/${imageName}.svg`, import.meta.url).href
     },
     getPlanPrice(plan) {
-      return this.isMonthlyPeriod ? plan.monthly : plan.yearly
+      return this.isMonthlyPeriod ? `${plan.monthly}/mo` : `${plan.yearly}/yr`
     },
     selectPlan(plan) {
       this.selectedPlan = plan
