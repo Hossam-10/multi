@@ -13,7 +13,8 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import getImagePath from '@/helpers/getImagePath'
 import { ref } from 'vue'
 
 const successfulMessage = ref(

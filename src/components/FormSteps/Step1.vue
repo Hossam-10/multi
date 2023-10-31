@@ -48,7 +48,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
 import { useStore } from 'vuex'
 const { dispatch } = useStore()
@@ -64,7 +64,7 @@ const phoneRules = ref([
 ])
 
 const isValid = ref(false)
-const personalInfo = reactive({})
+const personalInfo = reactive({name:'',email:'',phoneNumber:''})
 
 //Save step data
 const nextStep = () => {

@@ -11,7 +11,7 @@
   </v-card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import Step1 from './FormSteps/Step1.vue'
 import Step2 from './FormSteps/Step2.vue'
 import Step3 from './FormSteps/Step3.vue'
@@ -22,7 +22,7 @@ import { useStore } from 'vuex'
 import { useDisplay } from 'vuetify'
 const { state } = useStore()
 
-const step = computed(() => state.step)
+const step = computed<number>(() => state.step)
 const componentName = computed(() => {
   switch (step.value) {
     case 0:
