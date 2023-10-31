@@ -17,6 +17,35 @@
   </v-card>
 </template>
 
+<script setup>
+import { computed, ref } from 'vue'
+import { useStore } from 'vuex'
+const { state } = useStore()
+
+const steps = ref([
+  {
+    title: 'STEP1',
+    description: 'YOUR INFO'
+  },
+  {
+    title: 'STEP2',
+    description: 'SELECT PLAN'
+  },
+  {
+    title: 'STEP3',
+    description: 'ADD-ONS'
+  },
+  {
+    title: 'STEP4',
+    description: 'SUMMARY'
+  }
+])
+const step = computed(() => state.step)
+const setActiveStepClass = (index) => {
+  return step.value === index ? 'active-step' : ''
+}
+</script>
+
 <script>
 import { mapState } from 'vuex'
 export default {

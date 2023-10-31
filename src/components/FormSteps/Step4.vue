@@ -52,6 +52,74 @@
   </div>
 </template>
 
+<script setup>
+import { confirmService } from '@/services'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+const { state, dispatch } = useStore()
+
+const selectedPlan = computed(() => state.formData.plan)
+const addons = computed(() => state.formData.addons)
+const gamePlanData = computed(() => state.formData)
+const planDetails = computed(() => {
+  const planPeriod = selectedPlan.value.isMonthlyPeriod ? 'Monthly' : 'Yearly'
+  return `${selectedPlan.value.name} (${planPeriod})`
+})
+
+//Plan pricing
+const planPrice = computed(() => {
+  const planPrice = selectedPlan.value.isMonthlyPeriod
+    ? selectedPlan.value.monthly
+    : selectedPlan.value.yearly
+  const planPeriod = selectedPlan.value.isMonthlyPeriod ? 'mo' : 'yr'
+  return `$${planPrice}/${planPeriod}`
+})
+const totalPrice = computed(() => {
+  const planPrice = selectedPlan.value.isMonthlyPeriod
+    ? selectedPlan.value.monthly
+    : selectedPlan.value.yearly / 12
+  let totalAddonsPrice = 0
+  addons.value.forEach((addon) => {
+    totalAddonsPrice += addon.price
+  })
+  return planPrice + totalAddonsPrice
+})
+
+//snackbar
+const snackbarState = ref(false)
+const setSnackbar = (val) => {
+  snackbarState.value = val
+}
+const showSnackbar = () => {
+  setSnackbar(true)
+  setTimeout(() => {
+    setSnackbar(false)
+  }, 3000)
+}
+
+//steps functionality
+const setStep = () => {
+  dispatch('setStep')
+}
+const decrementStep = () => {
+  dispatch('decrementStep')
+}
+
+//Send final plan details to api
+const isRequestLoading = ref(false)
+const confirm = async () => {
+  try {
+    isRequestLoading.value = true
+    await confirmService.confirmPlan(this.gamePlanData)
+    dispatch('incrementStep')
+  } catch {
+    showSnackbar()
+  } finally {
+    isRequestLoading.value = false
+  }
+}
+</script>
+
 <script>
 import { mapState, mapActions } from 'vuex'
 import { confirmService } from '@/services'
@@ -94,15 +162,7 @@ export default {
   },
   methods: {
     ...mapActions(['decrementStep', 'incrementStep', 'setStep']),
-    setSnackbar(val) {
-      this.snackbarState = val
-    },
-    showSnackbar() {
-      this.setSnackbar(true)
-      setTimeout(() => {
-        this.setSnackbar(false)
-      }, 3000)
-    },
+
     async confirm() {
       try {
         this.isRequestLoading = true

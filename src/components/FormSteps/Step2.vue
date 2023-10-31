@@ -12,7 +12,11 @@
             @click="selectPlan(plan)"
           >
             <div class="d-flex flex-column justify-space-between h-100">
-              <v-img max-width="35" max-height="35" :src="getPlanImage(plan.iconName)"></v-img>
+              <v-img
+                max-width="35"
+                max-height="35"
+                :src="getImagePath(`svgs/plans/${plan.iconName}.svg`)"
+              ></v-img>
               <div>
                 <p class="font-weight-bold">{{ plan.name }}</p>
                 <p class="price-text">${{ getPlanPrice(plan) }}</p>
@@ -44,56 +48,50 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-export default {
-  name: 'Step2',
-  data() {
-    return {
-      plans: [
-        {
-          name: 'Arcade',
-          monthly: 10,
-          yearly: 90,
-          iconName: 'arcade'
-        },
-        {
-          name: 'Advanced',
-          monthly: 40,
-          yearly: 120,
-          iconName: 'advanced'
-        },
-        {
-          name: 'Pro',
-          monthly: 70,
-          yearly: 150,
-          iconName: 'pro'
-        }
-      ],
-      isMonthlyPeriod: true,
-      selectedPlan: {}
-    }
+<script setup>
+import { reactive, ref } from 'vue'
+import { useStore } from 'vuex'
+import getImagePath from '@/helpers/getImagePath'
+const { dispatch } = useStore()
+
+const plans = ref([
+  {
+    name: 'Arcade',
+    monthly: 10,
+    yearly: 90,
+    iconName: 'arcade'
   },
-  computed() {},
-  methods: {
-    ...mapActions(['decrementStep', 'incrementStep', 'setFormData']),
-    getPlanImage(imageName) {
-      return new URL(`../../assets/images/svgs/plans/${imageName}.svg`, import.meta.url).href
-    },
-    getPlanPrice(plan) {
-      return this.isMonthlyPeriod ? `${plan.monthly}/mo` : `${plan.yearly}/yr`
-    },
-    selectPlan(plan) {
-      this.selectedPlan = plan
-    },
-    nextStep() {
-      const payload = {
-        plan: { ...this.selectedPlan, isMonthlyPeriod: this.isMonthlyPeriod }
-      }
-      this.setFormData(payload)
-      this.incrementStep()
-    }
+  {
+    name: 'Advanced',
+    monthly: 40,
+    yearly: 120,
+    iconName: 'advanced'
+  },
+  {
+    name: 'Pro',
+    monthly: 70,
+    yearly: 150,
+    iconName: 'pro'
   }
+])
+const isMonthlyPeriod = ref(true)
+const selectedPlan = ref({})
+
+const getPlanPrice = (plan) => {
+  return isMonthlyPeriod.value ? `${plan.monthly}/mo` : `${plan.yearly}/yr`
+}
+const selectPlan = (plan) => {
+  selectedPlan.value = plan
+}
+const decrementStep = () => {
+  dispatch('decrementStep')
+}
+const nextStep = () => {
+  const payload = {
+    plan: { ...selectedPlan.value, isMonthlyPeriod: isMonthlyPeriod.value }
+  }
+  dispatch('setFormData', payload)
+  dispatch('incrementStep')
 }
 </script>
 
