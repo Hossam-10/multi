@@ -38,33 +38,27 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-export default {
-  name: 'Step3',
-  data() {
-    return {
-      addOns: [
-        { title: 'Online service', description: 'Access to multiplayer games', price: 1 },
-        { title: 'Large storage', description: 'Extra 1TB of cloud save', price: 2 },
-        { title: 'Customizable profile', description: 'Custom theme on your profile', price: 2 }
-      ],
-      selectedAddOns: []
-    }
-  },
-  methods: {
-    ...mapActions(['decrementStep', 'incrementStep', 'setFormData']),
-    setAddon(addon) {
-      const addonIndex = this.selectedAddOns.findIndex((selected) => selected.title === addon.title)
-      addonIndex === -1
-        ? this.selectedAddOns.push(addon)
-        : this.selectedAddOns.splice(addonIndex, 1)
-    },
-    nextStep() {
-      this.setFormData({ addons: this.selectedAddOns })
-      this.incrementStep()
-    }
-  }
+<script setup>
+import { ref } from 'vue'
+import { useStore } from 'vuex'
+const { dispatch } = useStore()
+
+const addOns = ref([
+  { title: 'Online service', description: 'Access to multiplayer games', price: 1 },
+  { title: 'Large storage', description: 'Extra 1TB of cloud save', price: 2 },
+  { title: 'Customizable profile', description: 'Custom theme on your profile', price: 2 }
+])
+const selectedAddOns = ref([])
+const setAddon = (addon) => {
+  const addonIndex = selectedAddOns.value.findIndex((selected) => selected.title === addon.title)
+  addonIndex === -1 ? selectedAddOns.value.push(addon) : selectedAddOns.value.splice(addonIndex, 1)
+}
+const decrementStep = () => {
+  dispatch('decrementStep')
+}
+const nextStep = () => {
+  dispatch('setFormData', { addons: selectedAddOns.value })
+  dispatch('incrementStep')
 }
 </script>
 

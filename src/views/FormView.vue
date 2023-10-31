@@ -17,23 +17,13 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import FormSidebar from '@/components/Sidebar/FormSidebar.vue'
 import FormSidebarMobile from '@/components/Sidebar/FormSidebarMobile.vue'
 import Form from '@/components/Form.vue'
-export default {
-  name: 'FormView',
-  components: {
-    FormSidebar,
-    Form,
-    FormSidebarMobile
-  },
-  computed: {
-    xs() {
-      return this.$vuetify.display.xs
-    }
-  }
-}
+import { useDisplay } from 'vuetify'
+
+const { xs } = useDisplay()
 </script>
 
 <style lang="scss" scoped>
