@@ -11,14 +11,12 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex'
-export default {
-  name: 'FormSidebarMobile',
-  computed: {
-    ...mapState(['step'])
-  }
-}
+<script setup>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+const { state } = useStore()
+
+const step = computed(() => state.step)
 </script>
 
 <style lang="scss" scoped>

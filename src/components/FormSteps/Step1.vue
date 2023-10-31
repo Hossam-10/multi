@@ -48,34 +48,27 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-export default {
-  name: 'Step1',
-  data() {
-    return {
-      personalInfo: {},
-      emailRules: [
-        (v) =>
-          (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)) ||
-          'Please enter a valid email'
-      ],
-      phoneRules: [
-        (v) =>
-          (!!v && /^(002)?(02)?(\+2)?01[1025][0-9]{8}$/.test(v)) ||
-          'Please enter a valid phone number'
-      ],
-      isValid: false
-    }
-  },
-  methods: {
-    ...mapActions(['incrementStep', 'setFormData']),
-    nextStep() {
-      this.setFormData({ personalInfo: this.personalInfo })
-      this.incrementStep()
-    }
-  }
+<script setup>
+import { ref, computed, reactive } from 'vue'
+import { useStore } from 'vuex'
+const { dispatch } = useStore()
+
+//Define input rules for validation
+const emailRules = ref([
+  (v) =>
+    (!!v && /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)) || 'Please enter a valid email'
+])
+const phoneRules = ref([
+  (v) =>
+    (!!v && /^(002)?(02)?(\+2)?01[1025][0-9]{8}$/.test(v)) || 'Please enter a valid phone number'
+])
+
+const isValid = ref(false)
+const personalInfo = reactive({})
+
+//Save step data
+const nextStep = () => {
+  dispatch('setFormData', { personalInfo })
+  dispatch('incrementStep')
 }
 </script>
-
-<style lang="scss" scoped></style>
